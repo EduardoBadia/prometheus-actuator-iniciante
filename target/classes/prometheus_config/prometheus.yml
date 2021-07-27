@@ -1,3 +1,5 @@
+# O intuito deste arquivo é fazer com que o prometheus enxergue o actuator
+
 global:
   scrape_interval:     15s # By default, scrape targets every 15 seconds.
 
@@ -15,6 +17,8 @@ scrape_configs:
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
 
+    # no comando do docker, esta é a porta do container prometheus que é mapeada
+    # para outra porta tipo 9092
     static_configs:
       - targets: ['localhost:9090']
 
@@ -28,7 +32,8 @@ scrape_configs:
     #How frequently to scape the data from the end point
     scrape_interval: 5s
 
-    #target end point. We are using the Docker, so local host will not work. You can change it with
+    # essa aqui é a porta do actuator. O prometheus reconhece que a aplicação está rodando nesta porta
+    # foi trocado HOST_IP por host.docker.internal
     #localhost if not using the Docker.
     static_configs:
        - targets: ['host.docker.internal:8080']
